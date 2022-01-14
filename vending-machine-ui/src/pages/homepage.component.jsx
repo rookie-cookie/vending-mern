@@ -9,6 +9,7 @@ import FixedBottomNavigation from '../components/checkout-button.component'
 const fetchURL = "http://localhost:8000/api/products";  //fetch data from DB 
 const getItems = () => fetch(fetchURL).then(res => res.json());
 
+
 function Homepage() {
 
   // const [data, setData] = useState({sodas: []})
@@ -26,6 +27,31 @@ function Homepage() {
       <Container>
       <h2>WELCOME TO COLACO</h2>
       <br/>
+
+      {
+          isLoading ? (
+            "Fetching data - please wait"
+          ) : (
+            <Grid  container spacing={3}>
+              {data.map((item, key) => {
+                return (
+                  <Grid key={key} item xs={12} md={6} lg={3}>
+                    <MediaCard 
+                      key={key} 
+                      name={item.name} 
+                      description={item.description} 
+                      imageurl={item.imageurl}
+                      instock={item.instock}
+                      maxquantity={item.maxquantity}
+                      cost={item.cost}
+                      id={item._id}
+                    />
+                  </Grid>
+                );
+            })}
+          </Grid>
+          )
+        }
         
         {/* <Grid  container spacing={3}>
             {Data.map((data, key) => {
@@ -61,29 +87,7 @@ function Homepage() {
           )
         } */}
 
-        {
-          isLoading ? (
-            "Fetching data - please wait"
-          ) : (
-            <Grid  container spacing={3}>
-              {data.map((item, key) => {
-                return (
-                  <Grid key={key} item xs={12} md={6} lg={3}>
-                    <MediaCard 
-                      key={key} 
-                      name={item.name} 
-                      description={item.description} 
-                      imageurl={item.imageurl}
-                      instock={item.instock}
-                      maxquantity={item.maxquantity}
-                      cost={item.cost}
-                    />
-                  </Grid>
-                );
-            })}
-          </Grid>
-          )
-        }
+        
             
       </Container>
 

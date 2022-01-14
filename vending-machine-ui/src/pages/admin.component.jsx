@@ -13,10 +13,11 @@ import { DataGrid } from '@mui/x-data-grid'
 import Collapse from '@mui/material/Collapse'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
+import axios from 'axios'
+
 
 const fetchURL = "http://localhost:8000/api/products"; //fetch data from DB 
 const getItems = () => fetch(fetchURL).then(res => res.json());
-
 
 
 function Admin() {
@@ -25,15 +26,22 @@ function Admin() {
   const [isLoading, setLoading] = useState(true)
   const [checked, setChecked] = useState(false)
 
+  const [newname, setNewname] = useState('')
+  const [newdescription, setNewdescription] = useState('')
+  const [newmaxquantity, setNewmaxquantity] = useState('')
+  const [newinstock, setNewinstock] = useState('')
+  const [newcost, setNewcost] = useState('')
+  const [newimageurl, setNewimageurl] = useState('')
+
+   
 
   useEffect(() => {
     getItems().then(soda => setData(soda));
     setLoading(false)
   }, []);
 
-
+  //for the table 
   const columns = [
-  
   {
     field: 'name',
     headerName: 'Name',
@@ -62,7 +70,7 @@ function Admin() {
   },
   {
     field: 'cost',
-    headerName: 'Cost',
+    headerName: 'Cost $',
     type: 'number',
     width: 90,
     editable: true
@@ -76,21 +84,37 @@ function Admin() {
   
 ];
 
-const rows = data.map((item, key) => {
-  return {
-    id: key,
-    name: item.name,
-    description: item.description,
-    max_quantity: item.maxquantity,
-    stock_count: item.instock,
-    cost: item.cost,
-    imageurl: item.imageurl
-  }
-})
+  const rows = data.map((item, key) => {
+    return {
+      id: key,
+      name: item.name,
+      description: item.description,
+      max_quantity: item.maxquantity,
+      stock_count: item.instock,
+      cost: item.cost,
+      imageurl: item.imageurl
+    }
+  })
 
-const handleChange = () => {
+  const handleChange = () => {
     setChecked((prev) => !prev);
   };
+
+  const handleAddproduct = () => {
+    const FETCH_URL = 'http://localhost:8000/api/products/add'
+    const product = 
+    {
+      name: newname,
+      description: newdescription,
+      maxquantity: newmaxquantity,
+      instock: newinstock,
+      cost: newcost,
+      imageurl: newimageurl
+    };
+    console.log(product)
+    axios.post(FETCH_URL, product)
+      .then(res => console.log(res.data));
+  }
   
   return (
 
@@ -98,14 +122,14 @@ const handleChange = () => {
       <Container>
       <h2>ADMIN</h2>
 
-      <div style={{ height: 350, width: '100%', backgroundColor: 'white' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={4}
-        rowsPerPageOptions={[4]}
-        checkboxSelection
-      />
+      <div style={{ height: 400, width: '100%', backgroundColor: 'white' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          rowsPerPageOptions={[5]}
+          checkboxSelection
+        />
       </div>
 
       <br/>
@@ -119,21 +143,25 @@ const handleChange = () => {
       <Collapse in={checked}>
 
         <Box sx={{ maxWidth: '100%', margin: 'auto' }}>
-          <TextField fullWidth label="Name" id="item-name" margin="dense" sx={{backgroundColor: 'white'}}/>
-          <TextField fullWidth label="Description" id="item-description" margin="dense" sx={{backgroundColor: 'white'}} />
-          <TextField fullWidth label="Max Quantity" id="item-maxquantity" margin="dense" sx={{backgroundColor: 'white'}} />
-          <TextField fullWidth label="Stock Count" id="item-instock" margin="dense" sx={{backgroundColor: 'white'}} />
-          <TextField fullWidth label="Cost" id="item-cost" margin="dense" sx={{backgroundColor: 'white'}} />
-          <TextField fullWidth label="Image URL" id="item-imageurl" margin="dense" sx={{backgroundColor: 'white'}} />
+          <TextField fullWidth label="Name" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setNewname(e.target.value)} />
+          <TextField fullWidth label="Description" id="item-description" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setNewdescription(e.target.value)} />
+          <TextField fullWidth label="Max Quantity" id="item-maxquantity" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setNewmaxquantity(e.target.value)}/>
+          <TextField fullWidth label="Stock Count" id="item-instock" margin="dense" sx={{backgroundColor: 'white'}}
+          onChange={e => setNewinstock(e.target.value)} />
+          <TextField fullWidth label="Cost" id="item-cost" margin="dense" sx={{backgroundColor: 'white'}}
+          onChange={e => setNewcost(e.target.value)} />
+          <TextField fullWidth label="Image URL" id="item-imageurl" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setNewimageurl(e.target.value)}/>
           
         </Box>
 
         <br/>
-        <Button variant="contained">ADD</Button>
+        <Button variant="contained" onClick={handleAddproduct}>ADD</Button>
          
       </Collapse>
-
-      
 
 
        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

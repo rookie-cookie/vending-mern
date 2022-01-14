@@ -8,8 +8,12 @@ import Button from '@mui/material/Button'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Typography from '@mui/material/Typography'
 import { saveAs } from "file-saver"
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
-export default function MediaCard({ name, description, imageurl, instock, maxquantity, cost }) {
+export default function MediaCard({ id, name, description, imageurl, instock, maxquantity, cost }) {
+
+  // const { name, description, imageurl, instock, maxquantity, cost } = props
 
   const [counter, setCounter] = useState(0)
   const [itemsLeft, setItemsLeft] = useState(instock)
@@ -42,6 +46,24 @@ export default function MediaCard({ name, description, imageurl, instock, maxqua
     let sodajson = JSON.stringify(sodaobj, undefined, 4)
     // saveAs(blob, "soda.json");
     alert(sodajson)
+    
+
+    //update the db 
+    const FETCH_URL = 'http://localhost:8000/api/products/update/'
+    const product = {
+      name: name,
+      description: description,
+      maxquantity: maxquantity,
+      instock: instock-counter,
+      cost: cost,
+      imageurl: imageurl
+    };
+    console.log(product)
+    console.log(id)
+
+    axios.post(FETCH_URL+id, product)
+      .then(res => console.log(res.data))
+    
     window.location.reload()
   }
 
