@@ -5,12 +5,14 @@ import Grid from '@mui/material/Grid'
 import FixedBottomNavigation from '../components/checkout-button.component'
 // import { Data } from '../components/data'
 
-const fetchURL = "http://localhost:8000/api";
+// const fetchURL = "http://localhost:8000/api"; //fetch data from local 
+const fetchURL = "http://localhost:8000/api/products";  //fetch data from DB 
 const getItems = () => fetch(fetchURL).then(res => res.json());
 
 function Homepage() {
 
-  const [data, setData] = useState({sodas: []})
+  // const [data, setData] = useState({sodas: []})
+  const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -35,12 +37,36 @@ function Homepage() {
             })}
         </Grid> */}
 
-        {
+         {/* {
           isLoading ? (
             "Fetching data - please wait"
           ) : (
             <Grid  container spacing={3}>
               {data.sodas.map((item, key) => {
+                return (
+                  <Grid key={key} item xs={12} md={6} lg={3}>
+                    <MediaCard 
+                      key={key} 
+                      name={item.name} 
+                      description={item.description} 
+                      imageurl={item.imageurl}
+                      instock={item.instock}
+                      maxquantity={item.maxquantity}
+                      cost={item.cost}
+                    />
+                  </Grid>
+                );
+            })}
+          </Grid>
+          )
+        } */}
+
+        {
+          isLoading ? (
+            "Fetching data - please wait"
+          ) : (
+            <Grid  container spacing={3}>
+              {data.map((item, key) => {
                 return (
                   <Grid key={key} item xs={12} md={6} lg={3}>
                     <MediaCard 
