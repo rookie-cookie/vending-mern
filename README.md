@@ -4,7 +4,6 @@
 
 FRONTEND  
 React  
-React Router  
 Material UI  
 
 BACKEND  
