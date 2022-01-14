@@ -28,7 +28,7 @@ export default function MediaCard({ name, description, imageurl, instock, maxqua
   }
 
 
-  const handleBuyNow = (el) => {
+  const handleBuyNow = () => {
     let sodaobj = {
       name: name,
       image: imageurl,

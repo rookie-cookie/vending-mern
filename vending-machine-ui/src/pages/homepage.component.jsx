@@ -15,10 +15,10 @@ function Homepage() {
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(true)
 
-    useEffect(() => {
-      getItems().then(soda => setData(soda));
-      setLoading(false)
-    }, []);
+  useEffect(() => {
+    getItems().then(soda => setData(soda));
+    setLoading(false)
+  }, []);
 
   return (
     <div>
@@ -91,7 +91,7 @@ function Homepage() {
 
          
 
-      {/* <FixedBottomNavigation /> */}
+      <FixedBottomNavigation />
     </div>
   )
 }

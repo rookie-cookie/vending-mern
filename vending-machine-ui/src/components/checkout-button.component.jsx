@@ -13,7 +13,7 @@ function FixedBottomNavigation() {
           
           {/* <Button variant="text">Total: </Button> */}
           <h4>
-            <Link to="checkout">GO TO CHECKOUT</Link>
+            <Link to="admin">ADMIN ONLY</Link>
            </h4>
           
           {/* <Button variant="text">BUY NOW</Button> */}

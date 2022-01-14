@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App'
 import Checkout from './pages/checkout.component'
+import Admin from './pages/admin.component'
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
@@ -17,6 +18,7 @@ ReactDOM.render(
     <BrowserRouter>
        <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/admin" element={<Admin />} />
       <Route path="/checkout" element={<Checkout />} />
     </Routes>
     </BrowserRouter>    
