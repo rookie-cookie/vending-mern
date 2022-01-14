@@ -4,33 +4,33 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 8000
 const app = express()
-const mongoose = require('mongoose')
 
-//Database
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
-const db = mongoose.connection
-db.on('error', (error) => console.error(error))
-db.once('open', () => console.log('Connected to database'))
 
+const productRoutes = require('../routes/productRoutes')
+
+//DB
+const connectDB = require('../config/db')
+connectDB()
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(express.json())
 
+//CORS 
 const cors = require("cors");
 const corsOptions = {
   origin: '*',
   credentials: true, 
   optionSuccessStatus: 200,
 }
-
 app.use(cors(corsOptions)) 
-
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
+
+app.use("/api/products", productRoutes)
 
 app.get("/api", (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
