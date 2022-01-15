@@ -37,15 +37,15 @@ export default function MediaCard({ id, name, description, imageurl, instock, ma
       name: name,
       image: imageurl,
       description: description,
-      price_$: cost,
+      price$: cost,
       quantity: counter,
-      totalAmount_$: cost * counter
+      amountpaid$: cost * counter
     }
 
     var blob = new Blob([JSON.stringify(sodaobj, undefined, 4)], {type: "text/json;charset=utf-8"})
     let sodajson = JSON.stringify(sodaobj, undefined, 4)
-    // saveAs(blob, "soda.json");
-    alert(sodajson)
+    saveAs(blob, "soda.json");
+    // alert(sodajson)
     
 
     //update the db 
