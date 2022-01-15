@@ -9,9 +9,8 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import Typography from '@mui/material/Typography'
 import { saveAs } from "file-saver"
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
 
-export default function MediaCard({ id, name, description, imageurl, instock, maxquantity, cost }) {
+export default function MediaCard({ id, key, name, description, imageurl, instock, maxquantity, cost }) {
 
   // const { name, description, imageurl, instock, maxquantity, cost } = props
 
@@ -77,8 +76,9 @@ export default function MediaCard({ id, name, description, imageurl, instock, ma
         alt="soda pic"
       />
       <CardContent>
+        
         <Typography gutterBottom variant="h5" component="div">
-          { name }
+          { name } 
         </Typography>
         <Typography component={'div'} variant="body2" color="text.secondary">
           { description }
@@ -108,7 +108,14 @@ export default function MediaCard({ id, name, description, imageurl, instock, ma
        
       </CardContent>
       <CardActions  style={{justifyContent: 'center'}}>
-        <Button size="small" onClick={handleBuyNow}>Buy Now</Button> 
+        {
+          counter 
+          ? 
+            <Button size="small" onClick={handleBuyNow}>BUY {counter} {name}</Button>  
+          : 
+            <Button size="small" disabled onClick={handleBuyNow}>SELECT AN ITEM TO BUY</Button>
+        }
+
         {/* <Button size="small">Add to Cart { counter }</Button> */}
       </CardActions>
     </Card>
