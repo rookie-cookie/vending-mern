@@ -5,9 +5,29 @@ import Grid from '@mui/material/Grid'
 import FixedBottomNavigation from '../components/checkout-button.component'
 // import { Data } from '../components/data'
 
+import Button from '@mui/material/Button'
+import Modal from '@mui/material/Modal'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+
+
 // const fetchURL = "http://localhost:8000/api"; //fetch data from local 
 const fetchURL = "http://localhost:8000/api/products";  //fetch data from DB 
 const getItems = () => fetch(fetchURL).then(res => res.json());
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+  color: 'black'
+};
 
 
 function Homepage() {
@@ -15,6 +35,13 @@ function Homepage() {
   // const [data, setData] = useState({sodas: []})
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(true)
+
+  const [money, setMoney] = useState(0)
+  const [card, setCard] = useState(0)
+  const [cvv, setCvv] = useState(0)
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   useEffect(() => {
     getItems().then(soda => setData(soda));
@@ -26,6 +53,33 @@ function Homepage() {
     
       <Container>
       <h2>WELCOME TO COLACO</h2>
+      
+      <Button onClick={handleOpen} variant="contained" style={{float: 'right'}}>LOAD CARD</Button>
+      <Button  style={{float: 'left', color: "white"}}>CURRENT BALANCE $ {money}</Button>
+
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            LOAD CARD
+          </Typography>
+          <TextField fullWidth required type="number" label="Card Number" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setCard(e.target.value)} />
+          <TextField fullWidth required type="number" label="CVV" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setCvv(e.target.value)} />
+          <TextField type="number" required fullWidth label="Amount" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setMoney(e.target.value)} />
+          <br/><br/>
+          <Button type="submit"variant="contained" >LOAD AMOUNT</Button>
+        </Box>
+      </Modal>
+
+      <br/>
       <br/>
 
       {
@@ -45,6 +99,7 @@ function Homepage() {
                       maxquantity={item.maxquantity}
                       cost={item.cost}
                       id={item._id}
+                      money={money}
                     />
                   </Grid>
                 );
@@ -52,7 +107,10 @@ function Homepage() {
           </Grid>
           )
         }
+        <br/>
+
         
+
         {/* <Grid  container spacing={3}>
             {Data.map((data, key) => {
               return (

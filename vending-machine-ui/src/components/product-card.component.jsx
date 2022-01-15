@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography'
 import { saveAs } from "file-saver"
 import axios from 'axios'
 
-export default function MediaCard({ id, key, name, description, imageurl, instock, maxquantity, cost }) {
+export default function MediaCard({ id, key, name, description, imageurl, instock, maxquantity, cost, money }) {
 
   // const { name, description, imageurl, instock, maxquantity, cost } = props
 
@@ -28,6 +28,10 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
       setCounter(counter - 1)
       setItemsLeft(itemsLeft + 1)
     }
+  }
+
+  const handleDisable = () => {
+    alert('Please select an item and make sure you have at least $1 in your balance')
   }
 
 
@@ -76,7 +80,6 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
         alt="soda pic"
       />
       <CardContent>
-        
         <Typography gutterBottom variant="h5" component="div">
           { name } 
         </Typography>
@@ -109,11 +112,11 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
       </CardContent>
       <CardActions  style={{justifyContent: 'center'}}>
         {
-          counter 
+          counter & money
           ? 
             <Button size="small" onClick={handleBuyNow}>BUY {counter} {name}</Button>  
           : 
-            <Button size="small" disabled onClick={handleBuyNow}>SELECT AN ITEM TO BUY</Button>
+            <Button size="small" onClick={handleDisable} style={{color: "gray"}}>SELECT AN ITEM TO BUY</Button>
         }
 
         {/* <Button size="small">Add to Cart { counter }</Button> */}
