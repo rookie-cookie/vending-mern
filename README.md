@@ -1,6 +1,7 @@
 # Vending Machine App 
 
-![alt text](screenshots/vending-ui.png "Frontend")
+![alt text](screenshots/vending-ui.png "Frontend")  
+
 ![alt text](screenshots/admin.png "Backend")
 
 
