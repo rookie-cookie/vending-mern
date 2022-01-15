@@ -22,15 +22,15 @@ Add login page for the admins
 
 FRONTEND  
 React  
-React Router
-Functional Components
-React Hooks
-Material UI  
+React Router  
+Functional Components  
+React Hooks  
+Material UI    
 
 BACKEND  
 Express  
-MongoDB
-Mongo Atlas
+MongoDB  
+Mongo Atlas  
 
 ### `npm install`
 

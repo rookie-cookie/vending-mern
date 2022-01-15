@@ -216,7 +216,7 @@ function Admin() {
 
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
-        label="ADD MORE PRODUCT"
+        label="ADD MORE PRODUCTS"
       />
 
       <Collapse in={checked}>
