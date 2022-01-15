@@ -8,7 +8,7 @@
     "start": "node server/index.js",
     "devStart": "nodemon server/index.js",
     "data:import": "node seederScript.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
+    "heroku-postbuild": "npm run build"
   },
   "proxy": "http://localhost:8000",
   "author": "",
@@ -31,5 +31,8 @@
   "devDependencies": {
     "dotenv": "^11.0.0",
     "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "10.16.0"
   }
 }
