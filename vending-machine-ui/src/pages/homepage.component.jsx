@@ -48,6 +48,12 @@ function Homepage() {
     setLoading(false)
   }, []);
 
+  const handleSetmoney = (e) => {
+    if (card && cvv){
+      setMoney(e.target.value)
+    }
+  }
+
   return (
     <div>
     
@@ -69,11 +75,15 @@ function Homepage() {
             LOAD CARD
           </Typography>
           <TextField fullWidth required type="number" label="Card Number" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
-          onChange={e => setCard(e.target.value)} />
+          onChange={e => setCard(e.target.value)} 
+          onInput = {(e) =>{e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,12) }}
+          />
           <TextField fullWidth required type="number" label="CVV" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
-          onChange={e => setCvv(e.target.value)} />
+          onChange={e => setCvv(e.target.value)}
+          onInput = {(e) =>{e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3) }}
+          />
           <TextField type="number" required fullWidth label="Amount" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
-          onChange={e => setMoney(e.target.value)} />
+          onChange={handleSetmoney} />
           <br/><br/>
           <Button type="submit"variant="contained" >LOAD AMOUNT</Button>
         </Box>
