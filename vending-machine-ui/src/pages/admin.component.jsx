@@ -8,13 +8,17 @@ import {
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-
 import { DataGrid } from '@mui/x-data-grid'
 import Collapse from '@mui/material/Collapse'
-import FormControlLabel from '@mui/material/FormControlLabel'
+// import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
 import axios from 'axios'
 
+import EditIcon from "@material-ui/icons/Edit"
+import DeleteIcon from '@mui/icons-material/Delete'
+import SaveIcon from '@mui/icons-material/Save'
+import { FormControlLabel, IconButton } from "@material-ui/core"
+import { blue } from "@material-ui/core/colors"
 
 const fetchURL = "http://localhost:8000/api/products"; //fetch data from DB 
 const getItems = () => fetch(fetchURL).then(res => res.json());
@@ -40,8 +44,78 @@ function Admin() {
     setLoading(false)
   }, []);
 
+
+  const MatEdit = (params) => {
+      const { index } = params;
+
+      const handleEditClick = () => {
+        // some action
+        const FETCH_URL = 'http://localhost:8000/api/products/update/'
+        console.log(params)
+        axios.post(FETCH_URL + index, params)
+          .then(res => console.log(res.data))
+          .then(alert("Product updated"))
+        window.location.reload()
+        
+        
+      };
+
+      const handleDeleteClick = () => {
+        const FETCH_URL = 'http://localhost:8000/api/products/'
+        axios.delete(FETCH_URL + index)
+          .then(res => console.log(res.data))
+        window.location.reload()
+        alert('Product deleted!')
+      };
+
+      return (
+        <>
+        <FormControlLabel
+          control={
+            <IconButton color="secondary" aria-label="add an alarm" onClick={handleEditClick} >
+              <SaveIcon  style={{ color: blue[500] }}/>
+            </IconButton>
+          }
+        />
+
+         <FormControlLabel
+          control={
+            <IconButton color="secondary" aria-label="add an alarm" onClick={handleDeleteClick} >
+              <DeleteIcon style={{ color: blue[500] }}/>
+            </IconButton>
+          }
+        />
+        </>
+        
+        
+      );
+    };
+
   //for the table 
   const columns = [
+  {
+      field: "actions",
+      headerName: "Actions",
+      sortable: false,
+      width: 140,
+      disableClickEventBubbling: true,
+      renderCell: (params) => {
+        return (
+          <div>
+            <MatEdit 
+              index={params.row._id}
+              name={params.row.name}
+              description={params.row.description}
+              maxquantity={params.row.max_quantity}
+              instock={params.row.stock_count}
+              imageurl={params.row.imageurl}
+              cost={params.row.cost}
+               />
+          </div>
+        );
+      }
+    },
+
   {
     field: 'name',
     headerName: 'Name',
@@ -84,7 +158,9 @@ function Admin() {
   
 ];
 
-  const rows = data.map((item, key) => {
+ 
+
+  const rowdata = data.map((item, key) => {
     return {
       id: key,
       name: item.name,
@@ -92,7 +168,8 @@ function Admin() {
       max_quantity: item.maxquantity,
       stock_count: item.instock,
       cost: item.cost,
-      imageurl: item.imageurl
+      imageurl: item.imageurl,
+      _id: item._id
     }
   })
 
@@ -114,6 +191,8 @@ function Admin() {
     console.log(product)
     axios.post(FETCH_URL, product)
       .then(res => console.log(res.data));
+    
+    window.location.reload()
   }
   
   return (
@@ -124,12 +203,13 @@ function Admin() {
 
       <div style={{ height: 400, width: '100%', backgroundColor: 'white' }}>
         <DataGrid
-          rows={rows}
+          rows={rowdata}
           columns={columns}
           pageSize={5}
           rowsPerPageOptions={[5]}
-          checkboxSelection
+         
         />
+
       </div>
 
       <br/>
@@ -137,7 +217,6 @@ function Admin() {
       <FormControlLabel
         control={<Switch checked={checked} onChange={handleChange} />}
         label="ADD MORE PRODUCT"
-        
       />
 
       <Collapse in={checked}>

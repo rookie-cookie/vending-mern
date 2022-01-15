@@ -4,10 +4,13 @@
 
 FRONTEND  
 React  
+React Router
 Material UI  
 
 BACKEND  
 Express  
+MongoDB
+Mongo Atlas
 
 ### `npm install`
 

@@ -58,8 +58,8 @@ export default function MediaCard({ id, name, description, imageurl, instock, ma
       cost: cost,
       imageurl: imageurl
     };
-    console.log(product)
-    console.log(id)
+    // console.log(product)
+    // console.log(id)
 
     axios.post(FETCH_URL+id, product)
       .then(res => console.log(res.data))

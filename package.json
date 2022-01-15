@@ -13,12 +13,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.8",
     "@mui/x-data-grid": "^5.2.2",
+    "@mui/x-data-grid-pro": "^5.2.2",
     "axios": "^0.24.0",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "file-saver": "^2.0.5",
+    "material-table": "^1.69.3",
     "mongoose": "^6.1.6"
   },
   "devDependencies": {
