@@ -45,8 +45,19 @@ API from DB: http://localhost:8000/api/products
 
 ### In the vending-machine project directory, you can run:
 
-### `npm start`
+### `npm start`   
+
+or  
+
+### `npm devStart`
 
 For the front end: [http://localhost:3000](http://localhost:3000) to view it in your browser.  
 
+### For the DB
+
+create an env file with your MONGO_URI   
+   
+run the seederscript to load data to the database   
+   
+### `npm run data:import`   
 
