@@ -8,6 +8,7 @@
     "start": "node server/index.js",
     "devStart": "nodemon server/index.js",
     "data:import": "node seederScript.js",
+    "build": "cd vending-machine-ui/ && npm install && npm build",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix vending-machine-ui && npm run build --prefix vending-machine-ui"
   },
   "proxy": "http://localhost:8000",
