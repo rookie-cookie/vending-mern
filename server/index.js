@@ -75,6 +75,10 @@ app.use("/api/products", productRoutes)
 //   });
 // });
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "vending-machine-ui", "build", "index.html"));
+})
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
