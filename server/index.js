@@ -76,6 +76,11 @@ app.use("/api/products", productRoutes)
 //   });
 // });
 
+if (process.env.NODE_ENV === 'production') {
+  //set static folder
+  app.use(express.static('vending-machine-ui/build'));
+}
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "vending-machine-ui", "build", "index.html"));
 })
