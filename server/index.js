@@ -4,6 +4,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const PORT = process.env.PORT || 8000
 const app = express()
+const path = require("path")
 
 
 const productRoutes = require('../routes/productRoutes')
