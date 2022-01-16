@@ -55,7 +55,7 @@ For the front end: [http://localhost:3000](http://localhost:3000) to view it in 
 
 ### For the DB
 
-create an env file with your MONGO_URI   
+create an env file with your MONGO_URI=mongodb+srv://<username>:<password>@<clustername>/<database>?retryWrites=true&w=majority  
    
 run the seederscript to load data to the database   
    
