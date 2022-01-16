@@ -26,7 +26,9 @@
     "express": "^4.17.2",
     "file-saver": "^2.0.5",
     "material-table": "^1.69.3",
-    "mongoose": "^6.1.6"
+    "mongoose": "^6.1.6",
+    "dotenv": "^11.0.0",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "dotenv": "^11.0.0",
