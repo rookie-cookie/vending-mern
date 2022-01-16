@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography'
 import { saveAs } from "file-saver"
 import axios from 'axios'
 
-export default function MediaCard({ id, key, name, description, imageurl, instock, maxquantity, cost, money }) {
+export default function MediaCard({ id, key, name, description, imageurl, instock, maxquantity, cost, money, sold }) {
 
   // const { name, description, imageurl, instock, maxquantity, cost } = props
 
@@ -49,25 +49,28 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
     let sodajson = JSON.stringify(sodaobj, undefined, 4)
     saveAs(blob, "soda.json");
     // alert(sodajson)
-    
+    alert("Thanks for purchasing!")
+
 
     //update the db 
     const FETCH_URL = 'http://localhost:8000/api/products/update/'
+
     const product = {
       name: name,
       description: description,
       maxquantity: maxquantity,
       instock: instock-counter,
       cost: cost,
-      imageurl: imageurl
+      imageurl: imageurl, 
+      sold: sold+counter
     };
-    // console.log(product)
+    console.log(product)
     // console.log(id)
 
     axios.post(FETCH_URL+id, product)
       .then(res => console.log(res.data))
     
-    window.location.reload()
+    // window.location.reload()
   }
 
   return (
@@ -91,6 +94,7 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
           Price: ${ cost }
         </Typography><br/>
         
+        
         <Typography component={'div'} variant="body2" color="text.secondary">
           <ButtonGroup variant="outlined" aria-label="outlined button group">
            <Button size="small" onClick={handleDecrement}>-</Button>  
@@ -108,7 +112,7 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
             itemsLeft ? `In Stock: ${itemsLeft}` : " Out of stock"
           }
         </Typography>
-       
+          
       </CardContent>
       <CardActions  style={{justifyContent: 'center'}}>
         {

@@ -30,6 +30,7 @@ const addProduct = async (req,res) => {
   const instock = req.body.instock
   const cost = req.body.cost
   const imageurl = req.body.imageurl
+  const sold = req.body.sold
 
   const newProduct = new Product({
     name,
@@ -37,7 +38,8 @@ const addProduct = async (req,res) => {
     maxquantity,
     instock,
     cost, 
-    imageurl
+    imageurl,
+    sold
   });
   
   newProduct.save()
@@ -78,6 +80,7 @@ const updateProductById = async (req,res) => {
         product.instock = req.body.instock
         product.cost = req.body.cost
         product.imageurl = req.body.imageurl
+        product.sold = req.body.sold
 
         product.save()
           .then(() => res.json('Product updated!'))

@@ -6,7 +6,8 @@ const products = [
     maxquantity: '90',
     instock: '10',
     imageurl: 'https://mir-s3-cdn-cf.behance.net/project_modules/hd/2f681067522271.5b3cb6db2e669.jpg',
-    cost: 1
+    cost: 1,
+    sold: 0
   }, {
     id: 2,
     name: 'Pop',
@@ -14,7 +15,8 @@ const products = [
     maxquantity: '90',
     instock: '10',
     imageurl: 'https://res.cloudinary.com/wnotw/images/c_limit,w_1536,q_auto:good,f_auto/v1605652028/npmum5kybg05zizjxykh/soda-can-design',
-    cost: 1
+    cost: 1,
+    sold: 0
   }, {
     id: 3,
     name: 'Cola',
@@ -22,7 +24,8 @@ const products = [
     maxquantity: '190',
     instock: '10',
     imageurl: 'https://cdn.dribbble.com/users/660474/screenshots/2888374/cansoda.jpg',
-    cost: 1
+    cost: 1,
+    sold: 0
   }, {
     id: 4,
     name: 'Mega Pop',
@@ -30,7 +33,8 @@ const products = [
     maxquantity: '40',
     instock: '10',
     imageurl: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/999ab567522271.5b3cb6db2fbf6.jpg',
-    cost: 1
+    cost: 1,
+    sold: 0
   }
 ]
 

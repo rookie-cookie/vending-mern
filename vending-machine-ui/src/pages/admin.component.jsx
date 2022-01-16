@@ -36,6 +36,7 @@ function Admin() {
   const [newinstock, setNewinstock] = useState('')
   const [newcost, setNewcost] = useState('')
   const [newimageurl, setNewimageurl] = useState('')
+  const [newsold, setNewsold] = useState('')
 
    
 
@@ -110,6 +111,7 @@ function Admin() {
               instock={params.row.stock_count}
               imageurl={params.row.imageurl}
               cost={params.row.cost}
+              sold={params.row.sold}
                />
           </div>
         );
@@ -136,10 +138,24 @@ function Admin() {
     editable: true
   },
   {
-    field: 'stock_count',
-    headerName: 'Current Stock',
+    field: 'current_stock',
+    headerName: 'Current Stock Left',
     type: 'number',
     width: 120,
+    editable: true
+  },
+  {
+    field: 'stock_count',
+    headerName: 'Vending Stock',
+    type: 'number',
+    width: 120,
+    editable: true
+  },
+  {
+    field: 'sold',
+    headerName: 'Sold',
+    type: 'number',
+    width: 90,
     editable: true
   },
   {
@@ -149,12 +165,14 @@ function Admin() {
     width: 90,
     editable: true
   },
+  
   {
     field: 'imageurl',
     headerName: 'Image Url',
     width: 850,
     editable: true
   },
+  
   
 ];
 
@@ -166,10 +184,12 @@ function Admin() {
       name: item.name,
       description: item.description,
       max_quantity: item.maxquantity,
+      current_stock: item.maxquantity-item.sold,
       stock_count: item.instock,
       cost: item.cost,
       imageurl: item.imageurl,
-      _id: item._id
+      _id: item._id,
+      sold: item.sold
     }
   })
 
@@ -186,7 +206,8 @@ function Admin() {
       maxquantity: newmaxquantity,
       instock: newinstock,
       cost: newcost,
-      imageurl: newimageurl
+      imageurl: newimageurl,
+      sold: newsold
     };
     console.log(product)
     axios.post(FETCH_URL, product)
@@ -227,13 +248,15 @@ function Admin() {
           <TextField fullWidth label="Description" id="item-description" margin="dense" sx={{backgroundColor: 'white'}} 
           onChange={e => setNewdescription(e.target.value)} />
           <TextField fullWidth label="Max Quantity" id="item-maxquantity" margin="dense" sx={{backgroundColor: 'white'}} 
-          onChange={e => setNewmaxquantity(e.target.value)}/>
-          <TextField fullWidth label="Stock Count" id="item-instock" margin="dense" sx={{backgroundColor: 'white'}}
-          onChange={e => setNewinstock(e.target.value)} />
+          onChange={e => setNewmaxquantity(e.target.value)} type="number"/>
+          <TextField fullWidth label="Vending Stock Count" id="item-instock" margin="dense" sx={{backgroundColor: 'white'}}
+          onChange={e => setNewinstock(e.target.value)} type="number" />
           <TextField fullWidth label="Cost" id="item-cost" margin="dense" sx={{backgroundColor: 'white'}}
-          onChange={e => setNewcost(e.target.value)} />
+          onChange={e => setNewcost(e.target.value)} type="number"/>
           <TextField fullWidth label="Image URL" id="item-imageurl" margin="dense" sx={{backgroundColor: 'white'}} 
           onChange={e => setNewimageurl(e.target.value)}/>
+          <TextField fullWidth label="Sold" id="item-imageurl" margin="dense" sx={{backgroundColor: 'white'}} 
+          onChange={e => setNewsold(e.target.value)} placeholder="0" type="number"/>
           
         </Box>
 

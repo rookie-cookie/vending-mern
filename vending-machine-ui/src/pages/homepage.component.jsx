@@ -76,16 +76,17 @@ function Homepage() {
           </Typography>
           <TextField fullWidth required type="number" label="Card Number" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
           onChange={e => setCard(e.target.value)} 
+          placeholder="1234 1234 1234 1234"
           onInput = {(e) =>{e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,12) }}
           />
           <TextField fullWidth required type="number" label="CVV" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
           onChange={e => setCvv(e.target.value)}
+          placeholder="123"
           onInput = {(e) =>{e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3) }}
           />
           <TextField type="number" required fullWidth label="Amount" id="item-name" margin="dense" sx={{backgroundColor: 'white'}} 
           onChange={handleSetmoney} />
           <br/><br/>
-          <Button type="submit"variant="contained" >LOAD AMOUNT</Button>
         </Box>
       </Modal>
 
@@ -110,6 +111,7 @@ function Homepage() {
                       cost={item.cost}
                       id={item._id}
                       money={money}
+                      sold={item.sold}
                     />
                   </Grid>
                 );
