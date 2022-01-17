@@ -47,7 +47,7 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
 
     var blob = new Blob([JSON.stringify(sodaobj, undefined, 4)], {type: "text/json;charset=utf-8"})
     let sodajson = JSON.stringify(sodaobj, undefined, 4)
-    // saveAs(blob, "soda.json");
+    saveAs(blob, "soda.json");
     // alert(sodajson)
     alert("Thanks for purchasing!")
 
