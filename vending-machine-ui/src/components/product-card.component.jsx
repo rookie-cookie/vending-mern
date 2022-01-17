@@ -53,7 +53,8 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
 
 
     //update the db 
-    const FETCH_URL = 'http://localhost:8000/api/products/update/'
+    // const FETCH_URL = 'http://localhost:8000/api/products/update/'
+    const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/update/`
 
     const product = {
       name: name,

@@ -20,7 +20,8 @@ import SaveIcon from '@mui/icons-material/Save'
 import { FormControlLabel, IconButton } from "@material-ui/core"
 import { blue } from "@material-ui/core/colors"
 
-const fetchURL = "http://localhost:8000/api/products"; //fetch data from DB 
+// const fetchURL = "http://localhost:8000/api/products"; //fetch data from DB 
+const fetchURL = `${process.env.REACT_APP_BACKEND_URL}`
 const getItems = () => fetch(fetchURL).then(res => res.json());
 
 
@@ -51,7 +52,8 @@ function Admin() {
 
       const handleEditClick = () => {
         // some action
-        const FETCH_URL = 'http://localhost:8000/api/products/update/'
+        // const FETCH_URL = 'http://localhost:8000/api/products/update/'
+        const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/update/`
         console.log(params)
         axios.post(FETCH_URL + index, params)
           .then(res => console.log(res.data))
@@ -62,7 +64,8 @@ function Admin() {
       };
 
       const handleDeleteClick = () => {
-        const FETCH_URL = 'http://localhost:8000/api/products/'
+        // const FETCH_URL = 'http://localhost:8000/api/products/'
+        const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}`
         axios.delete(FETCH_URL + index)
           .then(res => console.log(res.data))
         window.location.reload()
@@ -198,7 +201,8 @@ function Admin() {
   };
 
   const handleAddproduct = () => {
-    const FETCH_URL = 'http://localhost:8000/api/products/add'
+    // const FETCH_URL = 'http://localhost:8000/api/products/add'
+    const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/add/`
     const product = 
     {
       name: newname,
