@@ -21,11 +21,18 @@ import { FormControlLabel, IconButton } from "@material-ui/core"
 import { blue } from "@material-ui/core/colors"
 
 // const fetchURL = "http://localhost:8000/api/products"; //fetch data from DB 
-const fetchURL = `${process.env.REACT_APP_BACKEND_URL}`
-const getItems = () => fetch(fetchURL).then(res => res.json());
 
 
 function Admin() {
+
+  //API 
+  let fetchURL
+  if (process.env.NODE_ENV === 'production') {
+    fetchURL = "http://localhost:8000/api/products"
+  } else {
+    fetchURL = "https://vending-mern.herokuapp.com/api/products"
+  }
+  const getItems = () => fetch(fetchURL).then(res => res.json());
 
   const [data, setData] = useState([])
   const [isLoading, setLoading] = useState(true)
@@ -53,9 +60,8 @@ function Admin() {
       const handleEditClick = () => {
         // some action
         // const FETCH_URL = 'http://localhost:8000/api/products/update/'
-        const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/update/`
         console.log(params)
-        axios.post(FETCH_URL + index, params)
+        axios.post(`${fetchURL}/update/${index}`, params)
           .then(res => console.log(res.data))
           .then(alert("Product updated"))
         window.location.reload()
@@ -65,8 +71,7 @@ function Admin() {
 
       const handleDeleteClick = () => {
         // const FETCH_URL = 'http://localhost:8000/api/products/'
-        const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}`
-        axios.delete(FETCH_URL + index)
+        axios.delete(`${fetchURL}/${index}`)
           .then(res => console.log(res.data))
         window.location.reload()
         alert('Product deleted!')
@@ -202,7 +207,6 @@ function Admin() {
 
   const handleAddproduct = () => {
     // const FETCH_URL = 'http://localhost:8000/api/products/add'
-    const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/add/`
     const product = 
     {
       name: newname,
@@ -213,11 +217,13 @@ function Admin() {
       imageurl: newimageurl,
       sold: newsold
     };
+    // alert(`${fetchURL}/add`)
     console.log(product)
-    axios.post(FETCH_URL, product)
+    console.log(process.env.NODE_ENV)
+    axios.post(`${fetchURL}/add`, product)
       .then(res => console.log(res.data));
     
-    window.location.reload()
+    // window.location.reload()
   }
   
   return (

@@ -47,14 +47,20 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
 
     var blob = new Blob([JSON.stringify(sodaobj, undefined, 4)], {type: "text/json;charset=utf-8"})
     let sodajson = JSON.stringify(sodaobj, undefined, 4)
-    saveAs(blob, "soda.json");
+    // saveAs(blob, "soda.json");
     // alert(sodajson)
     alert("Thanks for purchasing!")
 
 
     //update the db 
     // const FETCH_URL = 'http://localhost:8000/api/products/update/'
-    const FETCH_URL = `${process.env.REACT_APP_BACKEND_URL}/update/`
+    //API 
+    let fetchURL
+    if (process.env.NODE_ENV === 'production') {
+      fetchURL = "http://localhost:8000/api/products"
+    } else {
+      fetchURL = "https://vending-mern.herokuapp.com/api/products"
+    }
 
     const product = {
       name: name,
@@ -66,9 +72,10 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
       sold: sold+counter
     };
     console.log(product)
-    // console.log(id)
+    console.log(id)
 
-    axios.post(FETCH_URL+id, product)
+    console.log(`${fetchURL}/update/${id}`)
+    axios.post(`${fetchURL}/update/${id}/`, product)
       .then(res => console.log(res.data))
     
     // window.location.reload()

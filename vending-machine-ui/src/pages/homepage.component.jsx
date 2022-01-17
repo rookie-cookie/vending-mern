@@ -14,10 +14,16 @@ import TextField from '@mui/material/TextField'
 
 // const fetchURL = "http://localhost:8000/api"; //fetch data from local 
 // const fetchURL = "http://localhost:8000/api/products";  //fetch data from DB 
-const fetchURL = `${process.env.REACT_APP_BACKEND_URL}`
+
+let fetchURL 
+
+if (process.env.NODE_ENV === 'production') {
+  fetchURL = "http://localhost:8000/api/products"
+} else {
+  fetchURL = "https://vending-mern.herokuapp.com/api/products"
+}
+
 const getItems = () => fetch(fetchURL).then(res => res.json());
-
-
 
 
 const style = {
