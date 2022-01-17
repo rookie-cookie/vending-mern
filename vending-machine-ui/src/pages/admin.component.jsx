@@ -27,7 +27,7 @@ function Admin() {
 
   //API 
   let fetchURL
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'production') {
     fetchURL = "http://localhost:8000/api/products"
   } else {
     fetchURL = "https://vending-mern.herokuapp.com/api/products"

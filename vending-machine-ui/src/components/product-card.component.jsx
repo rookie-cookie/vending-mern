@@ -56,7 +56,7 @@ export default function MediaCard({ id, key, name, description, imageurl, instoc
     // const FETCH_URL = 'http://localhost:8000/api/products/update/'
     //API 
     let fetchURL
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV !== 'production') {
       fetchURL = "http://localhost:8000/api/products"
     } else {
       fetchURL = "https://vending-mern.herokuapp.com/api/products"
